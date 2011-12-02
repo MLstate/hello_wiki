@@ -137,6 +137,6 @@ Server.start(Server.http,
    /** Statically embed a bundle of resources */
   [ {bundle: @static_include_directory("resources")}
    /** Launch the [start] dispatcher */
-  , {filter: Server.Filter.anywhere, dispatch: start}
+  , {dispatch: start}
   ]
 )

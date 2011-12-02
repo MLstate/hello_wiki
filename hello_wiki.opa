@@ -102,14 +102,14 @@ function save(topic) {
  * @return A resource, ready to be passed to a dispatcher.
  */
 function display(topic) {
-   Resource.styled_page("About {topic}", ["/resources/css.css"],
+   xhtml =
      <div class="topbar"><div class="fill"><div class="container"><div id=#logo></div></div></div></div>
      <div class="content container">
        <div class="page-header"><h1>About {topic}</></>
        <div class="well" id=#show_content ondblclick={function(_) { edit(topic) }}>{load_rendered(topic)}</>
        <textarea rows="30" id=#edit_content onblur={function(_) { save(topic) }}></>
      </div>
-   )
+   Resource.styled_page("About {topic}", ["/resources/css.css"], xhtml)
 }
 
 /**
@@ -124,9 +124,9 @@ function display(topic) {
 function start(url) {
   match (url) {
     case {path:[] ... } :
-      { display("Hello") }
+      display("Hello")
     case {~path ...} :
-      { display(String.capitalize(String.to_lower(String.concat("::", path)))) }
+      display(String.capitalize(String.to_lower(String.concat("::", path))))
   }
 }
 
@@ -137,6 +137,6 @@ Server.start(Server.http,
    /** Statically embed a bundle of resources */
   [ {bundle: @static_include_directory("resources")}
    /** Launch the [start] dispatcher */
-  , {filter: Server.Filter.anywhere, dispatch: start}
+  , {dispatch: start}
   ]
 )
