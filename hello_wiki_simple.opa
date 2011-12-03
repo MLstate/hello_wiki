@@ -135,7 +135,7 @@ function start(url) {
  */
 Server.start(Server.http,
    /** Statically embed a bundle of resources */
-  [ {bundle: @static_include_directory("resources")}
+  [ {resources: @static_include_directory("resources")}
    /** Launch the [start] dispatcher */
   , {dispatch: start}
   ]
