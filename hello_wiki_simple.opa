@@ -31,7 +31,7 @@ database /wiki[_] = "This page is empty. Double-click to edit."
  * page. Otherwise, the source for the default page.
  */
 function load_source(topic) {
-  /wiki[topic]
+    /wiki[topic];
 }
 
 /**
@@ -45,8 +45,8 @@ function load_source(topic) {
  * Note: This function does not perform any caching.
  */
 function load_rendered(topic) {
-  source = load_source(topic)
-  Markdown.xhtml_of_string(Markdown.default_options, source)
+    source = load_source(topic);
+    Markdown.xhtml_of_string(Markdown.default_options, source);
 }
 
 /**
@@ -57,8 +57,8 @@ function load_rendered(topic) {
  * @return The xhtml for the page that has just been saved.
  */
 function save_source(topic, source) {
-  /wiki[topic] <- source
-  load_rendered(topic)
+    /wiki[topic] <- source;
+    load_rendered(topic);
 }
 
 /**
@@ -74,10 +74,10 @@ function save_source(topic, source) {
  * @param topic The topic to edit.
  */
 function edit(topic) {
-  Dom.set_value(#edit_content, load_source(topic))
-  Dom.hide(#show_content)
-  Dom.show(#edit_content)
-  Dom.give_focus(#edit_content)
+    Dom.set_value(#edit_content, load_source(topic));
+    Dom.hide(#show_content);
+    Dom.show(#edit_content);
+    Dom.give_focus(#edit_content);
 }
 
 /**
@@ -89,10 +89,10 @@ function edit(topic) {
  * @param topic The topic to save.
  */
 function save(topic) {
-   content = save_source(topic, Dom.get_value(#edit_content))
-   #show_content = content
-   Dom.hide(#edit_content)
-   Dom.show(#show_content)
+   content = save_source(topic, Dom.get_value(#edit_content));
+   #show_content = content;
+   Dom.hide(#edit_content);
+   Dom.show(#show_content);
 }
 
 /**
@@ -109,7 +109,7 @@ function display(topic) {
        <div class="well" id=#show_content ondblclick={function(_) { edit(topic) }}>{load_rendered(topic)}</>
        <textarea rows="30" id=#edit_content onblur={function(_) { save(topic) }}></>
      </div>
-   )
+   );
 }
 
 /**
@@ -122,21 +122,21 @@ function display(topic) {
  * Note: The empty request is dispatched as if it were "Hello".
  */
 function start(url) {
-  match (url) {
-    case {path:[] ... } :
-      { display("Hello") }
-    case {~path ...} :
-      { display(String.capitalize(String.to_lower(String.concat("::", path)))) }
-  }
+    match (url) {
+    case { path : [], ... }: display("Hello");
+    case ~{ path, ... }:
+        display(String.capitalize(String.to_lower(String.concat("::", path))));
+    }
 }
 
 /**
  * Start the wiki server
  */
-Server.start(Server.http,
-   /** Statically embed a bundle of resources */
-  [ {resources: @static_include_directory("resources")}
-   /** Launch the [start] dispatcher */
-  , {dispatch: start}
-  ]
-)
+Server.start(
+    Server.http,
+    /** Statically embed a bundle of resources */
+    [ {resources: @static_include_directory("resources")}
+      /** Launch the [start] dispatcher */
+      , {dispatch: start}
+    ]
+);
