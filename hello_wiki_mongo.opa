@@ -162,11 +162,11 @@ display(topic) =
        <div id=#logo></div>
      </div></div></div>
      <div class="content container">
-       <div class="page-header"><h1>About {topic}</></>
+       <div class="page-header"><h1>About {topic}</h1></div>
        <div class="well" id=#show_content ondblclick={_ -> edit(topic)}>
          {load_rendered(topic)}
-       </>
-       <textarea rows="30" id=#edit_content onblur={_ -> save(topic)}></>
+       </div>
+       <textarea rows="30" id=#edit_content onblur={_ -> save(topic)}></textarea>
      </div>
    )
 
