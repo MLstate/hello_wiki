@@ -108,9 +108,9 @@ function display(topic) {
    xhtml =
      <div class="navbar navbar-fixed-top"><div class="navbar-inner"><div class="container"><div id=#logo></div></div></div></div>
      <div class="content container">
-       <div class="page-header"><h1>About {topic}</></>
-       <div class="well" id=#show_content ondblclick={function(_) { edit(topic) }}>{load_rendered(topic)}</>
-       <textarea rows="30" id=#edit_content onblur={function(_) { save(topic) }}></>
+       <div class="page-header"><h1>About {topic}</h1></div>
+       <div class="well" id=#show_content ondblclick={function(_) { edit(topic) }}>{load_rendered(topic)}</div>
+       <textarea rows="30" id=#edit_content onblur={function(_) { save(topic) }}></textarea>
      </div>;
    Resource.styled_page("About {topic}", ["/resources/css.css"], xhtml);
 }
